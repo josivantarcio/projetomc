@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoriaResources {
 
 	@RequestMapping(method=RequestMethod.GET)
-	public String Listar() {
+	public String listar() {
 		return "REST está funcionando";
 	}
 }
