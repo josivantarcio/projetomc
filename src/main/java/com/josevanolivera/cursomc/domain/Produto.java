@@ -2,7 +2,9 @@ package com.josevanolivera.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,12 +34,13 @@ public class Produto implements Serializable{
 		joinColumns = @JoinColumn(name = "Produto_ID"),
 		inverseJoinColumns = @JoinColumn(name = "Categoria_ID")
 			) //criando a tabela relacional de muitos para muitos.
+	
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	private Set<ItemPedido> itens = new HashSet<>();
 	
 	public Produto() {		
 	}
-
 
 	public Produto(Integer id, String nome, Double valor) {
 		super();
@@ -45,8 +48,17 @@ public class Produto implements Serializable{
 		this.nome = nome;
 		this.valor = valor;
 	}
+	
+	public List<Pedido> getPedidos(){
+		List<Pedido> lista = new ArrayList<>();
+		for (ItemPedido y : itens) {
+			lista.add(y.getPedido());
+		}
+		return lista;
+	}
+	
 
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -87,6 +99,16 @@ public class Produto implements Serializable{
 	}
 
 
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -112,7 +134,7 @@ public class Produto implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
+
+
 
 }
